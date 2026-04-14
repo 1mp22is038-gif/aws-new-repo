@@ -36,12 +36,10 @@ const corsOptions = {
 app.use(cors(corsOptions));
 app.use(express.json());
 
-// Main Routes
-app.use('/auth', authRoutes);
-app.use('/products', productRoutes);
-app.use('/order', orderRoutes);
-
-// User-friendly aliases requested by user
+// Main Routes prefixed with /api for CloudFront compatibility
+app.use('/api/auth', authRoutes);
+app.use('/api/products', productRoutes);
+app.use('/api/order', orderRoutes);
 app.use('/api/orders', orderRoutes);
 app.use('/api/debug', debugRoutes);
 
