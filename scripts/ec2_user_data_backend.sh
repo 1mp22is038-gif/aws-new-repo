@@ -25,7 +25,7 @@ rm -rf aws-new-repo
 # Clone the repository
 git clone https://github.com/1mp22is038-gif/aws-new-repo.git
 
-cd aws-new-repo/backend
+cd aws-new-repo/Backend
 
 # 5. Set up Environment Variables (.env)
 cat <<EOT > .env

@@ -9,8 +9,8 @@ cd $PROJECT_DIR
 echo "Syncing with GitHub..."
 git pull origin main || echo "Git pull failed, using current files."
 
-# 2. Update backend
-cd backend
+# 2. Update Backend
+cd Backend
 echo "Installing backend dependencies..."
 npm install --omit=dev
 
