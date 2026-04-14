@@ -10,32 +10,30 @@ phases:
 
   pre_build:
     commands:
-      - echo "Installing backend dependencies for validation..."
-      - cd Backend && npm install
+      - echo "Installing backend dependencies..."
+      - cd backend && npm install
       - cd ..
 
   build:
     commands:
-      - echo "Build phase - preparing frontend..."
-      # If you have a build step for frontend, add it here (e.g., npm run build)
+      - echo "Building frontend..."
+      - cd Frontend
+      - npm install
+      - npm run build
+      - cd ..
 
   post_build:
     commands:
       - echo "Deploying Frontend to S3..."
-      # Sync the Frontend folder to your S3 bucket
-      - aws s3 sync Frontend/ s3://prajwalgowda.online --delete
+      - aws s3 sync Frontend/dist/ s3://frontend-static-website1 --delete
       
-      - echo "Deploying Backend to EC2 via SSM..."
-      # Trigger the deployment script on instances tagged Role=Backend
+      - echo "Deploying Backend via SSM..."
       - |
         aws ssm send-command \
           --document-name "AWS-RunShellScript" \
           --targets "Key=tag:Role,Values=Backend" \
-          --comment "Deploying latest backend via CodeBuild" \
           --parameters 'commands=["sudo -u ubuntu -i bash /home/ubuntu/aws-new-repo/scripts/application_start.sh"]' \
-          --region ${AWS_REGION:-ap-south-1}
-      
-      - echo "Deployment initiated successfully!"
+          --region ap-south-1
 
 artifacts:
   files:
