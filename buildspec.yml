@@ -7,11 +7,12 @@ phases:
     commands:
       - echo "Checking environment..."
       - aws --version
+      - ls -la
 
   pre_build:
     commands:
       - echo "Installing backend dependencies..."
-      - cd backend && npm install
+      - cd Backend && npm install
       - cd ..
 
   build:
