@@ -43,14 +43,11 @@ app.use('/api/order', orderRoutes);
 app.use('/api/orders', orderRoutes);
 app.use('/api/debug', debugRoutes);
 
-// Health check endpoints for AWS ALB
-app.get('/', (req, res) => {
-    res.status(200).send('OK');
-});
-
-app.get('/health', (req, res) => {
-    res.status(200).send('OK');
-});
+// Health check endpoints for AWS ALB/CloudFront
+app.get('/', (req, res) => res.status(200).send('OK'));
+app.get('/health', (req, res) => res.status(200).send('OK'));
+app.get('/api', (req, res) => res.status(200).send('OK'));
+app.get('/api/health', (req, res) => res.status(200).send('OK'));
 
 // Explicit DB Connectivity Test
 app.get('/db-test', async (req, res) => {
