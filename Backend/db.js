@@ -16,7 +16,9 @@ const pool = new Pool({
 });
 
 pool.on('error', (err, client) => {
-    console.error('Unexpected error on idle pg client', err);
+    console.error('CRITICAL: Unexpected error on idle pg client');
+    console.error('Error details:', err.message);
+    console.error('Error stack:', err.stack);
 });
 
 module.exports = {

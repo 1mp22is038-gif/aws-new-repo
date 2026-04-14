@@ -103,25 +103,32 @@ async function seedProducts() {
 
 // Server Startup
 const startServer = async () => {
-    try {
-        console.log("Initializing database...");
-        await initDb();
+    // Start listening IMMEDIATELY to satisfy AWS Health Checks and avoid 504s
+    app.listen(PORT, '0.0.0.0', async () => {
+        console.log(`\n==========================================`);
+        console.log(`🚀 StellarCart API is UP on port ${PORT}`);
+        console.log(`🌍 Environment: ${process.env.NODE_ENV || 'production'}`);
+        console.log(`==========================================\n`);
 
-        app.listen(PORT, '0.0.0.0', async () => {
-            console.log(`\n==========================================`);
-            console.log(`🚀 StellarCart API running on port ${PORT}`);
-            console.log(`🌍 Environment: ${process.env.NODE_ENV}`);
-            console.log(`🛡️  CORS allowed for: ${allowedOrigins.join(', ')}`);
-            console.log(`==========================================\n`);
+        try {
+            console.log("[DB] Starting background initialization...");
+            await initDb();
+            console.log("[DB] Initialization complete.");
             
-            // Seed DB on start
+            // Seed DB in background
             await seedProducts();
-        });
-    } catch (error) {
-        console.error("❌ CRITICAL ERROR: Failed to connect to the database.");
-        console.error(error.message);
-        process.exit(1);
-    }
+        } catch (error) {
+            console.error("\n❌ BACKGROUND DB ERROR: Initialization failed.");
+            console.error(error.message);
+            console.log("⚠️ Server remains UP but database features may be unavailable.\n");
+        }
+    });
+
+    // Handle process events
+    process.on('SIGTERM', () => {
+        console.log('SIGTERM signal received: closing HTTP server');
+        process.exit(0);
+    });
 };
 
 startServer();
