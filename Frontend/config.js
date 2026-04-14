@@ -1,3 +1,3 @@
 const CONFIG = {
-    API_URL: "https://prajwalgowda.online/api"
+    API_URL: "prajwalgowda.online"
 };
