@@ -33,7 +33,7 @@ phases:
         COMMAND_ID=$(aws ssm send-command \
           --document-name "AWS-RunShellScript" \
           --instance-ids "i-00ae9e38be5269310" \
-          --parameters 'commands=["sudo -u ubuntu -i bash -c \"if [ ! -d /home/ubuntu/aws-new ]; then cd /home/ubuntu && git clone https://github.com/1mp22is038-gif/aws-new.git; fi && cd /home/ubuntu/aws-new && git fetch origin master && git reset --hard origin/master && bash scripts/application_start.sh\""]' \
+          --parameters 'commands=["sudo -u ubuntu -i bash -c \"if [ ! -d /home/ubuntu/aws-new ]; then cd /home/ubuntu && git clone https://github.com/1mp22is038-gif/aws-new-repo.git; fi && cd /home/ubuntu/aws-new && git fetch origin master && git reset --hard origin/master && bash scripts/application_start.sh\""]' \
           --region ap-south-1 \
           --query "Command.CommandId" \
           --output text)

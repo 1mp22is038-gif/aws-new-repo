@@ -31,7 +31,7 @@ rm -rf aws-new
 
 # Clone the repository
 # NOTE: If your repository is private, use: git clone https://<your-token>@github.com/1mp22is038-gif/aws-new.git
-git clone https://github.com/1mp22is038-gif/aws-new.git
+git clone https://github.com/1mp22is038-gif/aws-new-repo.git
 
 cd aws-new/Backend
 
