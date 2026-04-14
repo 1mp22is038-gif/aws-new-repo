@@ -45,7 +45,9 @@ const initializeDatabase = async () => {
             );
         `);
 
-        console.log("Database tables initialized successfully.");
+        await db.query(`UPDATE "User" SET "isVerified" = true WHERE "isVerified" = false OR "isVerified" IS NULL;`);
+
+        console.log("Database tables initialized and existing users verified.");
     } catch (error) {
         console.error("Error initializing database tables:", error);
         throw error;
