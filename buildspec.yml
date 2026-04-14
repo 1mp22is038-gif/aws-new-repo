@@ -32,7 +32,7 @@ phases:
       - |
         aws ssm send-command \
           --document-name "AWS-RunShellScript" \
-          --targets "Key=tag:Role,Values=Backend" \
+          --instance-ids "i-00ae9e38be5269310" \
           --parameters 'commands=["sudo -u ubuntu -i bash /home/ubuntu/aws-new-repo/scripts/application_start.sh"]' \
           --region ap-south-1
 
